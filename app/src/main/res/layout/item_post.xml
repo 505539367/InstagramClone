@@ -2,6 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/Container"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="8dp"
@@ -13,9 +14,9 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
-        android:layout_marginStart="5dp"
-        android:layout_marginTop="13dp"
-        android:layout_marginEnd="1dp"
+        android:layout_marginStart="2dp"
+        android:layout_marginTop="2dp"
+        android:layout_marginEnd="0dp"
         android:layout_toEndOf="@+id/ivIcon"
         android:text="yy"
         android:textAppearance="@style/TextAppearance.AppCompat.Large" />
@@ -42,7 +43,7 @@
         android:layout_marginTop="5dp"
         android:layout_marginEnd="0dp"
         android:layout_marginBottom="8dp"
-        android:textColor="#232121"
+        android:textColor="#1E1D1D"
         tools:text="Description" />
 
     <ImageView
@@ -54,4 +55,73 @@
         android:layout_marginStart="0dp"
         android:layout_marginTop="0dp"
         tools:srcCompat="@tools:sample/avatars" />
+
+    <TextView
+        android:id="@+id/tvPostTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tvUsername"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="5dp"
+        android:text="11 oct 2021 at 18:30"
+        android:textSize="12sp" />
+
+    <ImageButton
+        android:id="@+id/ibPostLikeClick"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tvDescription"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="5dp"
+        android:backgroundTint="#FFFFFF"
+        app:srcCompat="@drawable/ic_baseline_thumb_up" />
+
+    <ImageButton
+        android:id="@+id/ibPostComment"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tvDescription"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="150dp"
+        android:layout_marginTop="5dp"
+        android:backgroundTint="#FFFFFF"
+        app:srcCompat="@drawable/ic_baseline_comment" />
+
+    <ImageButton
+        android:id="@+id/ibPostShareClick"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tvDescription"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="55dp"
+        android:backgroundTint="#FFFFFF"
+        app:srcCompat="@drawable/ic_baseline_ios_share" />
+
+    <TextView
+        android:id="@+id/tvPostLike"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tvDescription"
+        android:layout_marginStart="0dp"
+        android:layout_marginTop="12dp"
+        android:layout_toEndOf="@+id/ibPostLikeClick"
+        android:text="0"
+        android:textColor="#000000"
+        android:textSize="20sp" />
+
+    <TextView
+        android:id="@+id/tvPostShare"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tvDescription"
+        android:layout_alignStart="@+id/ibPostShareClick"
+        android:layout_marginStart="49dp"
+        android:layout_marginTop="12dp"
+        android:text="0"
+        android:textColor="#000000"
+        android:textSize="20sp" />
+
 </RelativeLayout>

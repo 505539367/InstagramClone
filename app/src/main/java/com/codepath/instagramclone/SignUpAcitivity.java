@@ -12,13 +12,10 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.parse.FindCallback;
 import com.parse.ParseException;
-import com.parse.ParseQuery;
 import com.parse.ParseUser;
 import com.parse.SignUpCallback;
 
-import java.util.List;
 
 public class SignUpAcitivity extends AppCompatActivity {
 
@@ -69,7 +66,7 @@ public class SignUpAcitivity extends AppCompatActivity {
                 }
                 if (email.isEmpty()) {
                     Toast.makeText(SignUpAcitivity.this, "Email cannot be empty", Toast.LENGTH_SHORT).show();
-                    tvEmailCheck.setText("Emailcannot be empty");
+                    tvEmailCheck.setText("Email cannot be empty");
                     tvEmailCheck.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.medium_red));
                     return;
                 }

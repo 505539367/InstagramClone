@@ -22,19 +22,14 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 import static android.app.Activity.RESULT_OK;
 
-import com.codepath.instagramclone.MainActivity;
 import com.codepath.instagramclone.Post;
 import com.codepath.instagramclone.R;
-import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseFile;
-import com.parse.ParseQuery;
 import com.parse.ParseUser;
 import com.parse.SaveCallback;
 
 import java.io.File;
-import java.util.List;
-
 
 
 /**
@@ -76,6 +71,8 @@ public class ComposeFragment extends Fragment {
         ivPostImage = view.findViewById(R.id.ivPostImage);
         btnSubmit = view.findViewById(R.id.btnSubmit);
         pb = view.findViewById(R.id.pbLoading);
+
+
 
         btnCaptureImage.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -162,6 +159,9 @@ public class ComposeFragment extends Fragment {
         post.setDescription(description);
         post.setImage(new ParseFile(photoFile));
         post.setuser(currentUser);
+        post.setLike("0");
+        post.setShared("0");
+
         post.saveInBackground(new SaveCallback() {
             @Override
             public void done(ParseException e) {

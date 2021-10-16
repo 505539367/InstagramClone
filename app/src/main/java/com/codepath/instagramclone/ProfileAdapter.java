@@ -1,25 +1,28 @@
 package com.codepath.instagramclone;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.resource.bitmap.CenterInside;
-import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.parse.ParseFile;
+
+import org.parceler.Parcels;
 
 import java.util.List;
 
 public class ProfileAdapter extends RecyclerView.Adapter<ProfileAdapter.ViewHolder>{
     private Context context;
     private List<Post> posts;
+
 
     public ProfileAdapter(Context context, List<Post>posts){
         this.context = context;
@@ -36,8 +39,12 @@ public class ProfileAdapter extends RecyclerView.Adapter<ProfileAdapter.ViewHold
     @Override
     public void onBindViewHolder(@NonNull ProfileAdapter.ViewHolder holder, int position) {
         Post post = posts.get(position);
-        holder.bind(post);
+        holder.bind(post, position);
 
+    }
+    public void clear() {
+        posts.clear();
+        notifyDataSetChanged();
     }
 
     @Override
@@ -46,32 +53,61 @@ public class ProfileAdapter extends RecyclerView.Adapter<ProfileAdapter.ViewHold
     }
 
     class ViewHolder extends RecyclerView.ViewHolder{
-        private ImageView ivIcon;
-        private TextView tvUsername;
+        private RelativeLayout container;
+        private TextView tvPost;
+        private TextView tvPostTime;
         private ImageView ivImage_user;
         private TextView tvDescription_user;
+        private TextView tvLike;
+        private TextView tvShared;
+
+        /*
+        private ImageButton ibShare;
+        private ImageButton ibLike;
+        private ImageButton ibComment;
+         */
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
+            container = itemView.findViewById(R.id.Container_user);
             ivImage_user = itemView.findViewById(R.id.ivImage_user);
             tvDescription_user = itemView.findViewById(R.id.tvDescription_user);
-            ivIcon = itemView.findViewById(R.id.ivIcon_user);
-            tvUsername = itemView.findViewById(R.id.tvUsername_profile);
-        }
-        public void bind (Post post){
-            tvDescription_user.setText(post.getDescription());
-            tvUsername.setText(post.getUser().getUsername());
+            tvPostTime = itemView.findViewById(R.id.tvPostTime_user);
+            tvPost= itemView.findViewById(R.id.tvPost_profile);
 
-            ParseFile icon = post.getUser().getParseFile("icon");
-            if(icon != null) {
-                Glide.with(context).load(icon.getUrl()).transform(new CenterInside(), new RoundedCorners(100)).into(ivIcon);
-            }
+            tvLike = itemView.findViewById(R.id.tvProfileLike);
+            tvShared = itemView.findViewById(R.id.tvProfileShare);
+            /*
+            ibLike = itemView.findViewById(R.id.ibProfileLikeClick);
+            ibComment = itemView.findViewById(R.id.ibProfileComment);
+            ibShare = itemView.findViewById(R.id.ibProfileShareClick);
+            */
+
+        }
+        public void bind (Post post, int position){
+
+            tvDescription_user.setText(post.getDescription());
+            int currentPosition = getItemCount() - position;
+            tvPost.setText("Post: "+ currentPosition);
+            tvPostTime.setText(post.getUpdatedAt().toString());
+            tvLike.setText(post.getLike());
+            tvShared.setText(post.getShared());
 
             ParseFile image = post.getImage();
             if(image != null) {
                 Glide.with(context).load(image.getUrl()).into(ivImage_user);
             }
 
+            container.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent i = new Intent(context, DetailActivity.class);
+                    i.putExtra("Fragment","ProfileFragment");
+                    i.putExtra("post", Parcels.wrap(post));
+                    i.putExtra("PositionProfile",position);
+                    context.startActivity(i);
+                }
+            });
         }
     }
 }

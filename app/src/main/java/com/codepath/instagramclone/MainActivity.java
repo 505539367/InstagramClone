@@ -7,6 +7,7 @@ import androidx.fragment.app.FragmentManager;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
@@ -26,6 +27,7 @@ public class MainActivity extends AppCompatActivity {
     final FragmentManager fragmentManager = getSupportFragmentManager();
     private BottomNavigationView bottomNavigationView;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,8 +39,11 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
                 Fragment fragment;
+                int position;
                 switch (menuItem.getItemId()) {
                     case R.id.action_home:
+                        position = getIntent().getIntExtra("Position", 0);
+                        PostsFragment.setPosition(position);
                         fragment = new PostsFragment();
                         break;
                     case R.id.action_compose:
@@ -46,6 +51,8 @@ public class MainActivity extends AppCompatActivity {
                         break;
                     case R.id.action_profile:
                     default:
+                        position = getIntent().getIntExtra("PositionProfile", 0);
+                        ProfileFragment.setPosition(position);
                         fragment = new ProfileFragment();
                         break;
                 }
@@ -53,8 +60,18 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             }
         });
-        // Set default selection
-        bottomNavigationView.setSelectedItemId(R.id.action_profile);
+
+        // Set selection
+        String fragment = getIntent().getStringExtra("Fragment");
+        boolean delete = getIntent().getBooleanExtra("Delete", false);
+        if(delete == true ||fragment!=null){
+                bottomNavigationView.setSelectedItemId(R.id.action_profile);
+                Log.i(TAG, "Go to profile page");
+        }else {
+            bottomNavigationView.setSelectedItemId(R.id.action_home);
+            Log.i(TAG, "Go to Home Page");
+        }
+
     }
 
 
